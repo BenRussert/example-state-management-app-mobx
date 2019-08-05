@@ -35,11 +35,11 @@ export function PriceTracker() {
       <h1>Price:</h1>
       <label>
         <input
-          defaultValue={price}
-          onChange={({ target }) => setPrice(target.value)}
+          value={price}
+          onChange={({ target }) => setPrice(Number.parseFloat(target.value))}
         />
       </label>
-      <h2>${price}</h2>
+      <h2>${price.toFixed(2)}</h2>
     </>
   );
 }
