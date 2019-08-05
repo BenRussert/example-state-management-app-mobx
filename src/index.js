@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 
-function CountTracker({ count, setCount }) {
+const globalAppContext = createContext(null);
+
+const GlobalAppProvider = globalAppContext.Provider;
+
+function CountTracker() {
+  const { count, setCount } = useContext(globalAppContext);
   useEffect(
     function doThisWheneverCountChanges() {
       console.log("Amount is now: ", count);
@@ -22,7 +27,8 @@ function CountTracker({ count, setCount }) {
   );
 }
 
-function PriceTracker({ price, setPrice }) {
+function PriceTracker() {
+  const { price, setPrice } = useContext(globalAppContext);
   useEffect(
     function doThisWheneverPriceChanges() {
       console.log("Price is now: ", price);
@@ -31,7 +37,7 @@ function PriceTracker({ price, setPrice }) {
   );
   return (
     <>
-      <h1>Total Price:</h1>
+      <h1>Price:</h1>
       <label>
         <input
           defaultValue={price}
@@ -43,7 +49,8 @@ function PriceTracker({ price, setPrice }) {
   );
 }
 
-function TotalCostTracker({ price, count }) {
+function TotalCostTracker() {
+  const { count, price } = useContext(globalAppContext);
   // Note: if you have an expensive calculation here and want it optimized like  mobx `computed`,
   // you can use the React useMemo api to only recalculate whenever `count` or `price` changes
   // IMHO: It's better not to add useMemo complexity unless it makes a noticiable difference to the user (rare)
@@ -62,11 +69,13 @@ function App() {
   const [price, setPrice] = useState(4.0);
 
   return (
-    <div className="App">
-      <CountTracker count={count} setCount={setCount} />
-      <PriceTracker price={price} setPrice={setPrice} />
-      <TotalCostTracker price={price} count={count} />
-    </div>
+    <GlobalAppProvider value={{ count, price, setCount, setPrice }}>
+      <div className="App">
+        <CountTracker />
+        <PriceTracker />
+        <TotalCostTracker />
+      </div>
+    </GlobalAppProvider>
   );
 }
 
