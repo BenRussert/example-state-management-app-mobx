@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 
-function App({ store }) {
+function App() {
   const [count, setCount] = useState(1);
   const [price, setPrice] = useState(4.0);
 
