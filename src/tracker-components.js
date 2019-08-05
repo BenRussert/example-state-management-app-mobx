@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { globalAppContext } from "./global-app-provider";
 
 export function CountTracker() {
@@ -6,7 +6,7 @@ export function CountTracker() {
   useEffect(
     function doThisWheneverCountChanges() {
       console.log("Amount is now: ", count);
-      if (count == 5) alert("Congratulations on 5 clicks!");
+      if (count === 5) alert("Congratulations on 5 clicks!");
     },
     [count]
   );

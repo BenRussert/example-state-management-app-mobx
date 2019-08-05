@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import { GlobalAppProvider } from "./global-app-provider";
@@ -11,11 +11,8 @@ import {
 import "./styles.css";
 
 function App() {
-  const [count, setCount] = useState(1);
-  const [price, setPrice] = useState(4.0);
-
   return (
-    <GlobalAppProvider value={{ count, price, setCount, setPrice }}>
+    <GlobalAppProvider>
       <div className="App">
         <CountTracker />
         <PriceTracker />
